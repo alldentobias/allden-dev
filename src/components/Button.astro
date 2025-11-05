@@ -8,12 +8,12 @@ interface Props {
 const { href, variant = 'primary', class: className } = Astro.props;
 
 const variants = {
-  primary: 'bg-nordic-black text-nordic-white hover:bg-nordic-gray-800',
-  secondary: 'bg-nordic-white text-nordic-black border-2 border-nordic-black hover:bg-nordic-gray-100',
-  ghost: 'bg-transparent text-nordic-black hover:bg-nordic-gray-100',
+  primary: 'bg-aurora-blue/20 border border-aurora-blue/30 text-nordic-mist hover:bg-aurora-blue/30 hover:border-aurora-blue/50 hover:shadow-lg hover:shadow-aurora-blue/20',
+  secondary: 'bg-nordic-deep/50 border border-nordic-fog/20 text-nordic-mist hover:bg-nordic-deep/70 hover:border-aurora-green/30 hover:shadow-lg hover:shadow-aurora-green/20',
+  ghost: 'bg-transparent text-nordic-fog hover:text-nordic-mist hover:bg-nordic-deep/30',
 };
 
-const baseClasses = 'inline-flex items-center justify-center px-6 py-3 font-medium transition-all duration-200 rounded';
+const baseClasses = 'inline-flex items-center justify-center px-6 py-3 font-medium transition-all duration-300 rounded-lg';
 const classes = `${baseClasses} ${variants[variant]} ${className || ''}`;
 ---
 

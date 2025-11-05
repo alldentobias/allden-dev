@@ -5,10 +5,10 @@ interface Props {
 }
 
 const { class: className, hover = false } = Astro.props;
-const hoverClass = hover ? 'hover:shadow-xl hover:-translate-y-1 cursor-pointer' : '';
+const hoverClass = hover ? 'hover:shadow-xl hover:shadow-aurora-blue/20 hover:-translate-y-1 hover:border-aurora-blue/40 cursor-pointer' : '';
 ---
 
-<div class={`bg-nordic-white border border-nordic-gray-200 rounded-lg p-6 transition-all duration-300 ${hoverClass} ${className || ''}`}>
+<div class={`bg-nordic-deep/30 border border-nordic-fog/20 rounded-lg p-6 transition-all duration-300 ${hoverClass} ${className || ''}`}>
   <slot />
 </div>
 

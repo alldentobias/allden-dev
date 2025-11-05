@@ -1,6 +1,12 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
+  safelist: [
+    {
+      pattern: /(text|bg|border)-(aurora|nordic)-(blue|green|purple|pink|night|deep|dark|mist|fog)/,
+      variants: ['hover', 'focus', 'group-hover'],
+    },
+  ],
   theme: {
     extend: {
       colors: {

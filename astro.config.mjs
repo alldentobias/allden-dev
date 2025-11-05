@@ -11,6 +11,7 @@ export default defineConfig({
     sitemap(),
     tailwind({
       applyBaseStyles: false,
+      configFile: './tailwind.config.mjs',
     }),
   ],
 });
