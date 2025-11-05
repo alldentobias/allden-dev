@@ -1,0 +1,15 @@
+---
+interface Props {
+  id?: string;
+  class?: string;
+  background?: 'dark' | 'gray';
+}
+
+const { id, class: className, background = 'dark' } = Astro.props;
+const bgClass = background === 'gray' ? 'bg-nordic-deep/30' : 'bg-transparent';
+---
+
+<section id={id} class={`py-20 ${bgClass} ${className || ''}`}>
+  <slot />
+</section>
+

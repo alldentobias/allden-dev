@@ -1,0 +1,189 @@
+---
+const experiences = [
+  {
+    id: 'vipps',
+    title: 'Senior Software Engineer',
+    company: 'Vipps AS',
+    location: 'Oslo, Norway',
+    period: 'February 2024 - Present',
+    description: 'Working on the Checkout team, building ecommerce solutions that combine login, shipping, and payment.',
+    details: [
+      'Fullstack development with TypeScript/React frontend and .NET backend with SQL Server',
+      'Implementing Domain-Driven Design and event-driven architecture',
+      'Designing and optimizing algorithms for payment processing',
+      'State-of-the-art clean architecture patterns',
+      'Temporary team lead responsibilities',
+      'Assisted with Swedish translations for the product suite'
+    ],
+    technologies: ['TypeScript', 'React', '.NET', 'SQL Server', 'DDD', 'Event-Driven Design']
+  },
+  {
+    id: 'aion',
+    title: 'Lead Backend Software Engineer',
+    company: 'Aion Eco',
+    location: 'Oslo, Norway',
+    period: 'January 2023 - January 2024',
+    description: 'Led backend development for a greentech startup focused on recycled high-quality polymers from maritime sources.',
+    details: [
+      'Lead engineer for Django/Python backend architecture',
+      'Full ownership of ops and infrastructure',
+      'Frontend development with Next.js',
+      'Built traceability software for tracking plastic waste lifecycle',
+      'Implemented climate footprint and energy calculations',
+      'Designed systems for product lifecycle management and circular economy'
+    ],
+    technologies: ['Python', 'Django', 'Next.js', 'PostgreSQL', 'Docker', 'AWS']
+  },
+  {
+    id: 'microsoft',
+    title: 'Software Engineer',
+    company: 'Microsoft Developer Center Norway',
+    location: 'Oslo, Norway',
+    period: '2019 - 2023',
+    description: 'Worked on Microsoft Feed, a state-of-the-art recommendation engine serving 135M monthly active users.',
+    details: [
+      'Backend development for recommendation engine processing billions of requests per month',
+      'Built memory-efficient substrate core engine serving 135M MAU',
+      'Developed AI/ML recommendation models using multi-armed bandits',
+      'Created multi-dimensional feature system for training state-of-the-art models',
+      'Built and maintained MLOps infrastructure',
+      'Mentored new hires and assisted with cultural adaptation to Nordic work culture',
+      'EM-like responsibilities including onboarding and team development'
+    ],
+    technologies: ['.NET', 'C#', 'Azure', 'Machine Learning', 'MLOps', 'Multi-Armed Bandits', 'Distributed Systems']
+  },
+  {
+    id: 'education',
+    title: 'Master of Science in Software Engineering',
+    company: 'Chalmers University of Technology',
+    location: 'Gothenburg, Sweden',
+    period: 'Graduated 2019',
+    description: 'Advanced degree focusing on algorithms, software architecture, and quality measurements.',
+    details: [
+      'Specialized in algorithms and data structures',
+      'Deep focus on software architecture patterns',
+      'Quality measurements and software metrics',
+      'Thesis work on performance optimization',
+      'Strong foundation in computer science fundamentals'
+    ],
+    technologies: ['Algorithms', 'Software Architecture', 'Quality Assurance', 'Computer Science']
+  }
+];
+---
+
+<div class="relative pl-8 md:pl-0">
+  <div class="space-y-12 relative">
+    <!-- Timeline line with aurora glow - inside cards container -->
+    <div class="absolute left-6 md:left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-aurora-blue via-aurora-green to-aurora-purple md:-translate-x-1/2"></div>
+    
+    {experiences.map((exp, index) => (
+      <div class={`relative flex flex-col md:flex-row gap-8 ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
+        <!-- Timeline dot with glow -->
+        <div class="absolute left-6 md:left-1/2 w-4 h-4 bg-aurora-blue rounded-full md:-translate-x-1/2 -translate-x-1/2 mt-2 shadow-lg shadow-aurora-blue/50 border-2 border-nordic-night"></div>
+        
+        <!-- Content -->
+        <div class={`md:w-1/2 ${index % 2 === 0 ? 'md:pr-12 md:text-right' : 'md:pl-12'}`}>
+          <button 
+            class="timeline-card text-left w-full bg-nordic-deep/50 backdrop-blur-sm border border-nordic-fog/20 rounded-lg p-6 hover:shadow-xl hover:shadow-aurora-blue/10 hover:border-aurora-blue/50 transition-all duration-300 cursor-pointer group"
+            data-experience={exp.id}
+          >
+            <div class="flex justify-between items-start mb-2">
+              <div class={index % 2 === 0 ? 'md:text-right w-full' : 'w-full'}>
+                <h3 class="text-2xl font-serif font-bold mb-1 text-nordic-mist group-hover:text-aurora-blue transition-colors">
+                  {exp.title}
+                </h3>
+                <p class="text-lg font-medium text-nordic-fog">{exp.company}</p>
+                <p class="text-sm text-nordic-fog/70">{exp.location}</p>
+              </div>
+            </div>
+            <p class="text-sm font-medium text-nordic-fog/60 mb-3">{exp.period}</p>
+            <p class="text-nordic-fog/90 leading-relaxed">{exp.description}</p>
+            <p class="text-sm text-aurora-blue/70 mt-4 font-medium group-hover:text-aurora-blue transition-colors">Click to explore →</p>
+          </button>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
+<!-- Modal -->
+<div id="timeline-modal" class="fixed inset-0 bg-nordic-night/90 backdrop-blur-xl z-50 hidden items-center justify-center p-4">
+  <div class="bg-nordic-deep/90 backdrop-blur-sm border border-nordic-fog/20 rounded-lg max-w-3xl w-full max-h-[90vh] overflow-y-auto animate-slide-up shadow-2xl shadow-aurora-blue/10">
+    <div class="sticky top-0 bg-nordic-deep/95 backdrop-blur-sm border-b border-nordic-fog/20 p-6 flex justify-between items-start">
+      <div>
+        <h3 id="modal-title" class="text-3xl font-serif font-bold mb-2 text-nordic-mist"></h3>
+        <p id="modal-company" class="text-xl font-medium text-nordic-fog"></p>
+        <p id="modal-location" class="text-sm text-nordic-fog/70"></p>
+        <p id="modal-period" class="text-sm font-medium text-nordic-fog/60 mt-2"></p>
+      </div>
+      <button id="close-modal" class="text-4xl text-nordic-fog/60 hover:text-aurora-blue transition-colors leading-none">
+        ×
+      </button>
+    </div>
+    
+    <div class="p-6">
+      <p id="modal-description" class="text-lg text-nordic-fog mb-6"></p>
+      
+      <h4 class="text-xl font-serif font-bold mb-4 text-nordic-mist">Key Contributions</h4>
+      <ul id="modal-details" class="space-y-2 mb-6"></ul>
+      
+      <h4 class="text-xl font-serif font-bold mb-4 text-nordic-mist">Technologies & Skills</h4>
+      <div id="modal-technologies" class="flex flex-wrap gap-2"></div>
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ experiences }}>
+  const modal = document.getElementById('timeline-modal');
+  const closeBtn = document.getElementById('close-modal');
+  const cards = document.querySelectorAll('.timeline-card');
+  
+  cards.forEach(card => {
+    card.addEventListener('click', () => {
+      const expId = card.getAttribute('data-experience');
+      const exp = experiences.find(e => e.id === expId);
+      
+      if (exp) {
+        document.getElementById('modal-title').textContent = exp.title;
+        document.getElementById('modal-company').textContent = exp.company;
+        document.getElementById('modal-location').textContent = exp.location;
+        document.getElementById('modal-period').textContent = exp.period;
+        document.getElementById('modal-description').textContent = exp.description;
+        
+        const detailsList = document.getElementById('modal-details');
+        detailsList.innerHTML = exp.details
+          .map(detail => `<li class="flex items-start"><span class="text-aurora-blue mr-2">•</span><span class="text-nordic-fog">${detail}</span></li>`)
+          .join('');
+        
+        const techContainer = document.getElementById('modal-technologies');
+        techContainer.innerHTML = exp.technologies
+          .map(tech => `<span class="px-3 py-1 bg-nordic-dark/50 border border-nordic-fog/20 text-nordic-fog rounded-full text-sm font-medium hover:border-aurora-blue/50 transition-colors">${tech}</span>`)
+          .join('');
+        
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      }
+    });
+  });
+  
+  closeBtn?.addEventListener('click', () => {
+    modal?.classList.add('hidden');
+    modal?.classList.remove('flex');
+  });
+  
+  modal?.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+  });
+  
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal && !modal.classList.contains('hidden')) {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+  });
+</script>
+

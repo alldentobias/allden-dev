@@ -1,0 +1,153 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import Section from '../components/Section.astro';
+import Container from '../components/Container.astro';
+import Timeline from '../components/Timeline.astro';
+import ContactForm from '../components/ContactForm.astro';
+import HamburgerMenu from '../components/HamburgerMenu.astro';
+---
+
+<BaseLayout>
+  <HamburgerMenu />
+  
+  <Hero />
+
+  <!-- About / Journey Start -->
+  <Section id="about">
+    <Container class="max-w-4xl">
+      <div>
+        <h2 class="text-4xl md:text-5xl font-serif font-bold mb-12 text-center text-nordic-mist">
+          The Journey
+        </h2>
+        
+        <div class="space-y-8 text-lg text-nordic-fog leading-relaxed">
+          <p>
+            From the west coast of Sweden to the fjords of Norway, my path has been guided by 
+            a singular obsession: <span class="text-aurora-blue font-medium">making things efficient</span>.
+          </p>
+          
+          <p>
+            What started with algorithms and data structures at Chalmers University evolved into 
+            building systems that serve hundreds of millions of users. I've worked on recommendation 
+            engines processing billions of requests, built traceability systems for sustainable futures, 
+            and now craft seamless payment experiences.
+          </p>
+
+          <p>
+            But efficiency isn't just about code. It's about <span class="text-aurora-green font-medium">understanding systems</span>—whether 
+            that's distributed architecture, machine learning models, or the fermentation process 
+            in a sourdough starter.
+          </p>
+
+          <div class="pt-8">
+            <h3 class="text-2xl font-serif font-bold mb-4 text-nordic-mist">What I Do</h3>
+            <p class="text-nordic-fog/80">
+              I build scalable systems using clean architecture, domain-driven design, and CQRS patterns. 
+              I work with algorithms, AI/ML models, and recommendation engines. I think about efficiency 
+              at every layer—from memory optimization to API design to developer experience.
+            </p>
+          </div>
+
+          <div class="pt-6">
+            <h3 class="text-2xl font-serif font-bold mb-4 text-nordic-mist">Education</h3>
+            <p class="text-nordic-fog/80">
+              <strong class="text-nordic-mist">Master of Science in Software Engineering</strong><br />
+              Chalmers University of Technology, Gothenburg<br />
+              <span class="text-sm text-nordic-fog/60">Focus: Algorithms, Software Architecture, and Quality Measurements</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Timeline Section -->
+  <Section id="journey" background="gray">
+    <Container class="max-w-5xl">
+      <h2 class="text-4xl md:text-5xl font-serif font-bold mb-16 text-center text-nordic-mist">
+        The Path
+      </h2>
+      <div>
+        <Timeline />
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Philosophy Section -->
+  <Section id="philosophy">
+    <Container class="max-w-3xl">
+      <div class="text-center space-y-8">
+        <blockquote class="text-2xl md:text-3xl font-serif italic text-nordic-fog/80 leading-relaxed">
+          "Efficiency is not about doing more.<br class="hidden md:block" />
+          It's about doing what matters, elegantly."
+        </blockquote>
+        
+        <div class="pt-12 text-left space-y-6 text-nordic-fog">
+          <p>
+            Whether I'm optimizing a distributed system to handle millions of requests or 
+            perfecting a sourdough recipe, the principles are the same: understand the fundamentals, 
+            measure your progress, iterate relentlessly.
+          </p>
+          
+          <p>
+            I'm drawn to problems where efficiency matters—where milliseconds in latency 
+            affect user experience, where memory optimization means serving more users, 
+            where clean architecture enables teams to move faster.
+          </p>
+
+          <p>
+            From Stockholm to Gothenburg to Oslo, I've been fortunate to work with exceptional 
+            teams building state-of-the-art systems. But the journey doesn't stop. There's 
+            always another algorithm to optimize, another architecture to refine, another 
+            problem worth solving.
+          </p>
+        </div>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Interests -->
+  <Section id="interests" background="gray">
+    <Container class="max-w-4xl">
+      <h2 class="text-4xl md:text-5xl font-serif font-bold mb-12 text-center text-nordic-mist">
+        Beyond Code
+      </h2>
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="bg-nordic-deep/30 backdrop-blur-sm border border-nordic-fog/10 rounded-lg p-8 hover:border-aurora-green/30 transition-all duration-300">
+          <h3 class="text-2xl font-serif font-bold mb-4 text-nordic-mist">Cooking</h3>
+          <p class="text-nordic-fog/80 leading-relaxed">
+            The kitchen is my second lab. Sourdough fermentation, Swedish classics, 
+            Nordic ingredients. Each recipe is an algorithm waiting to be optimized.
+            Check out my <a href="/blog" class="text-aurora-green hover:text-aurora-blue transition-colors underline">cooking blog</a>.
+          </p>
+        </div>
+
+        <div class="bg-nordic-deep/30 backdrop-blur-sm border border-nordic-fog/10 rounded-lg p-8 hover:border-aurora-blue/30 transition-all duration-300">
+          <h3 class="text-2xl font-serif font-bold mb-4 text-nordic-mist">Speaking & Sharing</h3>
+          <p class="text-nordic-fog/80 leading-relaxed">
+            I enjoy discussing LLMs, scalable architectures, and efficiency patterns. 
+            Whether it's a conference talk or mentoring developers, sharing knowledge 
+            is how we all grow.
+          </p>
+        </div>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Contact Section -->
+  <Section id="contact">
+    <Container class="max-w-4xl">
+      <h2 class="text-4xl md:text-5xl font-serif font-bold mb-8 text-center text-nordic-mist">
+        Let's Connect
+      </h2>
+      <p class="text-lg text-nordic-fog text-center mb-12">
+        Whether you're looking for someone to speak at your event, collaborate on a project, 
+        or just want to chat about systems architecture—I'd love to hear from you.
+      </p>
+      <div>
+        <ContactForm />
+      </div>
+    </Container>
+  </Section>
+</BaseLayout>

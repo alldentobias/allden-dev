@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/Container.astro';
+import Section from '../components/Section.astro';
+import HamburgerMenu from '../components/HamburgerMenu.astro';
+---
+
+<BaseLayout title="404 - Page Not Found | Tobias Alldén">
+  <HamburgerMenu />
+  
+  <Section class="pt-32 min-h-[70vh] flex items-center">
+    <Container class="max-w-2xl text-center">
+      <h1 class="text-6xl md:text-8xl font-serif font-bold mb-6 text-nordic-mist">
+        404
+      </h1>
+      <p class="text-2xl text-nordic-fog mb-8">
+        Page not found
+      </p>
+      <p class="text-lg text-nordic-fog/70 mb-12">
+        The page you're looking for doesn't exist or has been moved.
+      </p>
+      <div class="flex gap-4 justify-center">
+        <a 
+          href="/" 
+          class="inline-flex items-center justify-center px-8 py-4 bg-aurora-blue/20 border border-aurora-blue/50 text-nordic-mist hover:bg-aurora-blue/30 hover:border-aurora-blue transition-all duration-200 rounded font-medium"
+        >
+          Go Home
+        </a>
+        <a 
+          href="/blog" 
+          class="inline-flex items-center justify-center px-8 py-4 bg-transparent border border-nordic-fog/30 text-nordic-mist hover:border-aurora-green/50 hover:bg-nordic-deep/30 transition-all duration-200 rounded font-medium"
+        >
+          Read Blog
+        </a>
+      </div>
+    </Container>
+  </Section>
+</BaseLayout>
+

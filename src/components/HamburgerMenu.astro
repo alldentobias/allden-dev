@@ -1,0 +1,169 @@
+---
+// Mystical hamburger menu for dark theme
+---
+
+<!-- Menu button -->
+<button 
+  id="menu-toggle" 
+  class="fixed top-6 right-6 z-50 w-12 h-12 flex items-center justify-center bg-nordic-dark/90 backdrop-blur-sm border border-nordic-fog/30 rounded-lg hover:border-aurora-blue/50 transition-all duration-300 group shadow-lg"
+  aria-label="Toggle menu"
+>
+  <svg id="menu-icon" class="w-6 h-6 text-nordic-mist group-hover:text-aurora-blue transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+  </svg>
+  <svg id="close-icon" class="w-6 h-6 text-nordic-mist group-hover:text-aurora-blue transition-colors duration-300 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+  </svg>
+</button>
+
+<!-- Site title/logo -->
+<a 
+  href="/" 
+  class="fixed top-6 left-6 z-50 text-xl font-serif font-bold text-nordic-mist hover:text-aurora-blue transition-colors duration-300 drop-shadow-lg"
+>
+  Alldén
+</a>
+
+<!-- Full screen menu overlay -->
+<nav 
+  id="menu-overlay" 
+  class="fixed inset-0 z-40 bg-nordic-night/95 backdrop-blur-xl opacity-0 pointer-events-none transition-all duration-500"
+>
+  <!-- Aurora background effects -->
+  <div class="absolute inset-0 overflow-hidden pointer-events-none">
+    <div class="absolute top-0 left-1/4 w-96 h-96 bg-aurora-green/10 rounded-full blur-3xl animate-aurora"></div>
+    <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-aurora-purple/10 rounded-full blur-3xl animate-aurora" style="animation-delay: 2s;"></div>
+    <div class="absolute top-1/2 left-1/2 w-96 h-96 bg-aurora-blue/10 rounded-full blur-3xl animate-aurora" style="animation-delay: 4s;"></div>
+  </div>
+  
+  <div class="relative flex items-center justify-center min-h-screen">
+    <ul class="space-y-8 text-center">
+      <li>
+        <a 
+          href="/#about" 
+          class="menu-link text-4xl md:text-6xl font-serif text-nordic-mist hover:text-aurora-blue transition-colors duration-300 block opacity-0"
+          style="animation-delay: 0.1s;"
+        >
+          About
+        </a>
+      </li>
+      <li>
+        <a 
+          href="/#journey" 
+          class="menu-link text-4xl md:text-6xl font-serif text-nordic-mist hover:text-aurora-green transition-colors duration-300 block opacity-0"
+          style="animation-delay: 0.2s;"
+        >
+          Journey
+        </a>
+      </li>
+      <li>
+        <a 
+          href="/blog" 
+          class="menu-link text-4xl md:text-6xl font-serif text-nordic-mist hover:text-aurora-purple transition-colors duration-300 block opacity-0"
+          style="animation-delay: 0.3s;"
+        >
+          Blog
+        </a>
+      </li>
+      <li>
+        <a 
+          href="/#contact" 
+          class="menu-link text-4xl md:text-6xl font-serif text-nordic-mist hover:text-aurora-pink transition-colors duration-300 block opacity-0"
+          style="animation-delay: 0.4s;"
+        >
+          Contact
+        </a>
+      </li>
+    </ul>
+    
+    <!-- Social links in menu -->
+    <div class="absolute bottom-12 left-1/2 -translate-x-1/2 flex gap-8 opacity-0" id="menu-social">
+      <a href="https://github.com/alldentobias" target="_blank" rel="noopener noreferrer" class="text-nordic-fog hover:text-aurora-blue transition-colors text-sm">
+        GitHub
+      </a>
+      <a href="https://www.linkedin.com/in/tobiasallden/" target="_blank" rel="noopener noreferrer" class="text-nordic-fog hover:text-aurora-green transition-colors text-sm">
+        LinkedIn
+      </a>
+      <a href="https://instagram.com/alldentobias" target="_blank" rel="noopener noreferrer" class="text-nordic-fog hover:text-aurora-pink transition-colors text-sm">
+        Instagram
+      </a>
+    </div>
+  </div>
+</nav>
+
+<script>
+  const menuToggle = document.getElementById('menu-toggle');
+  const menuOverlay = document.getElementById('menu-overlay');
+  const menuLinks = document.querySelectorAll('.menu-link');
+  const menuSocial = document.getElementById('menu-social');
+  const menuIcon = document.getElementById('menu-icon');
+  const closeIcon = document.getElementById('close-icon');
+  
+  let isOpen = false;
+  
+  menuToggle?.addEventListener('click', () => {
+    isOpen = !isOpen;
+    
+    if (isOpen) {
+      // Open menu
+      menuOverlay?.classList.remove('opacity-0', 'pointer-events-none');
+      menuOverlay?.classList.add('opacity-100');
+      
+      // Switch icons
+      menuIcon?.classList.add('hidden');
+      closeIcon?.classList.remove('hidden');
+      
+      // Animate menu items in
+      setTimeout(() => {
+        menuLinks.forEach((link) => {
+          link.classList.add('animate-fade-in');
+          link.classList.remove('opacity-0');
+        });
+        menuSocial?.classList.add('animate-fade-in');
+        menuSocial?.classList.remove('opacity-0');
+      }, 100);
+      
+      // Prevent body scroll
+      document.body.style.overflow = 'hidden';
+    } else {
+      // Close menu
+      closeMenu();
+    }
+  });
+  
+  // Close menu when clicking a link
+  menuLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      closeMenu();
+    });
+  });
+  
+  function closeMenu() {
+    isOpen = false;
+    menuOverlay?.classList.add('opacity-0', 'pointer-events-none');
+    menuOverlay?.classList.remove('opacity-100');
+    
+    // Switch icons back
+    menuIcon?.classList.remove('hidden');
+    closeIcon?.classList.add('hidden');
+    
+    // Reset menu items
+    menuLinks.forEach((link) => {
+      link.classList.remove('animate-fade-in');
+      link.classList.add('opacity-0');
+    });
+    menuSocial?.classList.remove('animate-fade-in');
+    menuSocial?.classList.add('opacity-0');
+    
+    // Re-enable body scroll
+    document.body.style.overflow = '';
+  }
+  
+  // Close on escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && isOpen) {
+      closeMenu();
+    }
+  });
+</script>
+

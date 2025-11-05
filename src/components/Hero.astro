@@ -1,0 +1,136 @@
+---
+import Container from './Container.astro';
+---
+
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+  <!-- Northern lights aurora background -->
+  <div class="absolute inset-0 pointer-events-none overflow-hidden">
+    <div class="absolute top-0 left-1/4 w-[600px] h-[600px] bg-aurora-green/10 rounded-full blur-3xl animate-aurora"></div>
+    <div class="absolute top-1/4 right-1/4 w-[500px] h-[500px] bg-aurora-blue/10 rounded-full blur-3xl animate-aurora" style="animation-delay: 2s;"></div>
+    <div class="absolute bottom-1/4 left-1/3 w-[550px] h-[550px] bg-aurora-purple/10 rounded-full blur-3xl animate-aurora" style="animation-delay: 4s;"></div>
+    <div class="absolute top-1/3 right-1/3 w-[450px] h-[450px] bg-aurora-pink/5 rounded-full blur-3xl animate-aurora" style="animation-delay: 6s;"></div>
+  </div>
+  
+  <!-- Subtle stars effect -->
+  <div class="absolute inset-0 opacity-30">
+    <div class="absolute top-[20%] left-[15%] w-1 h-1 bg-nordic-mist rounded-full animate-pulse"></div>
+    <div class="absolute top-[35%] right-[25%] w-1 h-1 bg-nordic-mist rounded-full animate-pulse" style="animation-delay: 1s;"></div>
+    <div class="absolute top-[60%] left-[40%] w-1 h-1 bg-nordic-mist rounded-full animate-pulse" style="animation-delay: 2s;"></div>
+    <div class="absolute bottom-[30%] right-[35%] w-1 h-1 bg-nordic-mist rounded-full animate-pulse" style="animation-delay: 1.5s;"></div>
+    <div class="absolute top-[45%] left-[60%] w-1 h-1 bg-nordic-mist rounded-full animate-pulse" style="animation-delay: 0.5s;"></div>
+  </div>
+
+  <Container>
+    <div class="max-w-4xl mx-auto text-center relative z-10">
+      <!-- Typing intro -->
+      <div id="typing-intro" class="mb-6">
+        <p id="hi-text" class="text-1xl md:text-5xl text-nordic-fog/90 font-light mb-2 min-h-[1.2em]"></p>
+        <h1 id="name-text" class="text-xl md:text-2xl text-nordic-fog mb-4 font-light"></h1>
+      </div>
+      
+      <!-- Rest of content (hidden initially) -->
+      <div id="hero-content" class="opacity-0">
+        <p class="text-xl md:text-2xl text-nordic-fog mb-4 font-light">
+          Building efficient systems
+        </p>
+        <p id="location-text" class="text-lg md:text-xl text-nordic-fog/70 mb-12 opacity-0">
+          Oslo, Norway
+        </p>
+        
+        <!-- Subtle scroll indicator -->
+        <div id="scroll-indicator" class="opacity-0">
+          <a href="#about" class="inline-block text-nordic-fog/50 hover:text-aurora-blue transition-colors duration-300">
+            <svg class="w-6 h-6 animate-float" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </Container>
+</section>
+
+<script>
+  // Typing effect helper
+  function typeText(element: HTMLElement, text: string, speed: number = 100): Promise<void> {
+    return new Promise((resolve) => {
+      let i = 0;
+      element.textContent = '';
+      
+      const typeInterval = setInterval(() => {
+        if (i < text.length) {
+          element.textContent += text.charAt(i);
+          i++;
+        } else {
+          clearInterval(typeInterval);
+          resolve();
+        }
+      }, speed);
+    });
+  }
+
+  // Check if animation has been seen
+  const hasSeenIntro = sessionStorage.getItem('hasSeenHeroIntro');
+  const hiText = document.getElementById('hi-text');
+  const nameText = document.getElementById('name-text');
+  const heroContent = document.getElementById('hero-content');
+  const locationText = document.getElementById('location-text');
+  const scrollIndicator = document.getElementById('scroll-indicator');
+
+  if (hasSeenIntro) {
+    // Skip animation, show everything
+    if (hiText) hiText.textContent = 'Hi';
+    if (nameText) nameText.textContent = "I'm Tobias";
+    if (heroContent) {
+      heroContent.style.opacity = '1';
+      heroContent.style.transition = 'none';
+    }
+    if (locationText) locationText.style.opacity = '1';
+    if (scrollIndicator) scrollIndicator.style.opacity = '1';
+  } else {
+    // Run typing animation
+    const runAnimation = async () => {
+      await new Promise(resolve => setTimeout(resolve, 500));
+      
+      // Type "Hi"
+      if (hiText) {
+        await typeText(hiText, 'Hi', 150);
+      }
+      
+      await new Promise(resolve => setTimeout(resolve, 400));
+      
+      // Type "I'm Tobias"
+      if (nameText) {
+        await typeText(nameText, "I'm Tobias", 100);
+      }
+      
+      await new Promise(resolve => setTimeout(resolve, 800));
+      
+      // Fade in the rest
+      if (heroContent) {
+        heroContent.style.transition = 'opacity 1s ease-in-out';
+        heroContent.style.opacity = '1';
+      }
+      
+      await new Promise(resolve => setTimeout(resolve, 500));
+      
+      // Show location
+      if (locationText) {
+        locationText.style.transition = 'opacity 0.8s ease-in-out';
+        locationText.style.opacity = '1';
+      }
+      
+      await new Promise(resolve => setTimeout(resolve, 300));
+      
+      // Show scroll indicator
+      if (scrollIndicator) {
+        scrollIndicator.style.transition = 'opacity 0.8s ease-in-out';
+        scrollIndicator.style.opacity = '1';
+      }
+      
+      sessionStorage.setItem('hasSeenHeroIntro', 'true');
+    };
+    
+    runAnimation();
+  }
+</script>

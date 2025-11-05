@@ -1,0 +1,80 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../../components/Container.astro';
+import Section from '../../components/Section.astro';
+import HamburgerMenu from '../../components/HamburgerMenu.astro';
+
+const blogPosts = (await getCollection('blog'))
+  .filter(post => !post.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+function formatDate(date: Date) {
+  return new Intl.DateTimeFormat('en-US', { 
+    year: 'numeric', 
+    month: 'long', 
+    day: 'numeric' 
+  }).format(date);
+}
+
+function getReadingTime(content: string): number {
+  const wordsPerMinute = 200;
+  const wordCount = content.split(/\s+/).length;
+  return Math.ceil(wordCount / wordsPerMinute);
+}
+---
+
+<BaseLayout 
+  title="Blog - Tobias Alldén | Cooking, Tech & Life"
+  description="Tobias Alldén's blog featuring recipes, cooking techniques, and occasional tech insights from Oslo, Norway."
+>
+  <HamburgerMenu />
+  
+  <Section class="pt-32">
+    <Container class="max-w-4xl">
+      <h1 class="text-5xl md:text-6xl font-serif font-bold mb-6 animate-fade-in text-nordic-mist">
+        Blog
+      </h1>
+      <p class="text-xl text-nordic-fog mb-12 animate-slide-up">
+        Recipes, cooking techniques, and occasional thoughts from the kitchen and beyond.
+      </p>
+
+      {blogPosts.length === 0 ? (
+        <p class="text-nordic-fog/70 text-center py-12">
+          No posts yet. Check back soon!
+        </p>
+      ) : (
+        <div class="space-y-8">
+          {blogPosts.map((post) => (
+            <article class="border-b border-nordic-fog/20 pb-8 last:border-b-0 hover:bg-nordic-deep/30 -mx-6 px-6 py-6 rounded-lg transition-colors">
+              <a href={`/blog/${post.slug}`} class="block group">
+                <time class="text-sm text-nordic-fog/60 font-medium">
+                  {formatDate(post.data.date)}
+                </time>
+                <h2 class="text-3xl font-serif font-bold mt-2 mb-3 text-nordic-mist group-hover:text-aurora-blue transition-colors">
+                  {post.data.title}
+                </h2>
+                <p class="text-lg text-nordic-fog mb-4">
+                  {post.data.description}
+                </p>
+                {post.data.tags && post.data.tags.length > 0 && (
+                  <div class="flex flex-wrap gap-2 mb-3">
+                    {post.data.tags.map((tag) => (
+                      <span class="px-3 py-1 bg-nordic-dark/50 border border-nordic-fog/20 text-nordic-fog rounded-full text-sm">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
+                <span class="text-sm text-aurora-blue/70 inline-flex items-center group-hover:text-aurora-blue transition-colors">
+                  Read more →
+                </span>
+              </a>
+            </article>
+          ))}
+        </div>
+      )}
+    </Container>
+  </Section>
+</BaseLayout>
+

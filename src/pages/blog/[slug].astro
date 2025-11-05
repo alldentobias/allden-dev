@@ -1,0 +1,114 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../../components/Container.astro';
+import Section from '../../components/Section.astro';
+import HamburgerMenu from '../../components/HamburgerMenu.astro';
+
+export async function getStaticPaths() {
+  const blogPosts = await getCollection('blog');
+  return blogPosts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+
+function formatDate(date: Date) {
+  return new Intl.DateTimeFormat('en-US', { 
+    year: 'numeric', 
+    month: 'long', 
+    day: 'numeric' 
+  }).format(date);
+}
+
+function getReadingTime(body: string): number {
+  const wordsPerMinute = 200;
+  const wordCount = body.split(/\s+/).length;
+  return Math.ceil(wordCount / wordsPerMinute);
+}
+---
+
+<BaseLayout 
+  title={`${post.data.title} - Tobias Alldén`}
+  description={post.data.description}
+>
+  <HamburgerMenu />
+  
+  <Section class="pt-32">
+    <Container class="max-w-3xl">
+      <article class="animate-fade-in">
+        <header class="mb-12">
+          <a 
+            href="/blog" 
+            class="inline-flex items-center text-nordic-fog/70 hover:text-aurora-blue transition-colors mb-6"
+          >
+            ← Back to blog
+          </a>
+          <time class="text-sm text-nordic-fog/60 font-medium block mb-4">
+            {formatDate(post.data.date)} · {getReadingTime(post.body)} min read
+          </time>
+          <h1 class="text-4xl md:text-5xl font-serif font-bold mb-4 text-nordic-mist">
+            {post.data.title}
+          </h1>
+          <p class="text-xl text-nordic-fog">
+            {post.data.description}
+          </p>
+          {post.data.tags && post.data.tags.length > 0 && (
+            <div class="flex flex-wrap gap-2 mt-6">
+              {post.data.tags.map((tag) => (
+                <span class="px-3 py-1 bg-nordic-dark/50 border border-nordic-fog/20 text-nordic-fog rounded-full text-sm">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
+        </header>
+
+        <div class="prose prose-lg max-w-none
+          prose-headings:font-serif prose-headings:font-bold prose-headings:text-nordic-mist
+          prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-4
+          prose-h3:text-2xl prose-h3:mt-8 prose-h3:mb-3
+          prose-p:text-nordic-fog prose-p:leading-relaxed prose-p:mb-6
+          prose-a:text-aurora-blue prose-a:underline hover:prose-a:text-aurora-green
+          prose-strong:text-nordic-mist prose-strong:font-semibold
+          prose-ul:my-6 prose-ul:list-disc prose-ul:pl-6
+          prose-ol:my-6 prose-ol:list-decimal prose-ol:pl-6
+          prose-li:text-nordic-fog prose-li:my-2
+          prose-code:text-nordic-mist prose-code:bg-nordic-dark/50 prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-code:border prose-code:border-nordic-fog/20
+          prose-pre:bg-nordic-dark prose-pre:text-nordic-mist prose-pre:border prose-pre:border-nordic-fog/20
+          prose-blockquote:border-l-4 prose-blockquote:border-aurora-blue/50 prose-blockquote:pl-4 prose-blockquote:italic prose-blockquote:text-nordic-fog/80
+          prose-img:rounded-lg prose-img:shadow-lg
+        ">
+          <Content />
+        </div>
+
+        <footer class="mt-16 pt-8 border-t border-nordic-fog/20">
+          <div class="text-center">
+            <p class="text-nordic-fog mb-4">
+              Enjoyed this post? Let's connect!
+            </p>
+            <div class="flex gap-6 justify-center">
+              <a href="https://github.com/alldentobias" target="_blank" rel="noopener noreferrer" class="text-nordic-fog/70 hover:text-aurora-blue transition-colors">
+                GitHub
+              </a>
+              <a href="https://www.linkedin.com/in/tobiasallden/" target="_blank" rel="noopener noreferrer" class="text-nordic-fog/70 hover:text-aurora-green transition-colors">
+                LinkedIn
+              </a>
+              <a href="https://instagram.com/alldentobias" target="_blank" rel="noopener noreferrer" class="text-nordic-fog/70 hover:text-aurora-pink transition-colors">
+                Instagram
+              </a>
+            </div>
+          </div>
+        </footer>
+      </article>
+    </Container>
+  </Section>
+</BaseLayout>
+

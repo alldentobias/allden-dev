@@ -1,0 +1,113 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
+const {
+  title = 'Tobias Alldén - Senior Software Engineer | Oslo, Norway',
+  description = 'Senior Software Engineer based in Oslo, Norway. Specializing in scalable systems, algorithms, AI/ML, and software architecture. Available for consulting, speaking engagements, and custom software development.',
+  image = '/og-image.jpg',
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    
+    <!-- SEO Meta Tags -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(image, Astro.site)} />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={new URL(image, Astro.site)} />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Tobias Alldén",
+      "url": "https://allden.dev",
+      "image": new URL(image, Astro.site),
+      "jobTitle": "Senior Software Engineer",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Vipps AS"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Oslo",
+        "addressCountry": "Norway"
+      },
+      "alumniOf": {
+        "@type": "EducationalOrganization",
+        "name": "Chalmers University of Technology"
+      },
+      "knowsAbout": [
+        "Software Engineering",
+        "Algorithms",
+        "Software Architecture",
+        "Artificial Intelligence",
+        "Machine Learning",
+        "Domain Driven Design",
+        "CQRS",
+        "Scalable Systems",
+        "LLM",
+        "AI Consulting"
+      ],
+      "sameAs": [
+        "https://github.com/alldentobias",
+        "https://www.linkedin.com/in/tobiasallden/",
+        "https://instagram.com/alldentobias"
+      ]
+    })} />
+  </head>
+  <body class="min-h-screen flex flex-col relative overflow-x-hidden">
+    <slot />
+
+    <footer class="bg-nordic-deep/50 backdrop-blur-sm border-t border-nordic-fog/10 py-12 mt-20">
+      <div class="container mx-auto px-6">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+          <p class="text-sm text-nordic-fog/60">
+            © {new Date().getFullYear()} Tobias Alldén
+          </p>
+          <div class="flex gap-6">
+            <a href="https://github.com/alldentobias" target="_blank" rel="noopener noreferrer" class="text-nordic-fog/60 hover:text-aurora-blue transition-colors" aria-label="GitHub">
+              GitHub
+            </a>
+            <a href="https://www.linkedin.com/in/tobiasallden/" target="_blank" rel="noopener noreferrer" class="text-nordic-fog/60 hover:text-aurora-green transition-colors" aria-label="LinkedIn">
+              LinkedIn
+            </a>
+            <a href="https://instagram.com/alldentobias" target="_blank" rel="noopener noreferrer" class="text-nordic-fog/60 hover:text-aurora-pink transition-colors" aria-label="Instagram">
+              Instagram
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
+
